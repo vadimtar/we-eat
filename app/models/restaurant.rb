@@ -1,4 +1,5 @@
 class Restaurant < ApplicationRecord
   belongs_to :cuisine
-  has_many :reviews, dependent: destroy
+  has_many :reviews, dependent: :destroy
 end
+

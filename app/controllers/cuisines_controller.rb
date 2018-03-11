@@ -1,5 +1,6 @@
 class CuisinesController < ApplicationController
   before_action :set_cuisine, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /cuisines
   # GET /cuisines.json
@@ -69,6 +70,6 @@ class CuisinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cuisine_params
-      params.require(:cuisine).permit(:name)
+      params.permit(:name)
     end
 end

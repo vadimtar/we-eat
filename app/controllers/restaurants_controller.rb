@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /restaurants
   # GET /restaurants.json
@@ -16,6 +17,7 @@ class RestaurantsController < ApplicationController
   def new
     @restaurant = Restaurant.new
   end
+
 
   # GET /restaurants/1/edit
   def edit
@@ -69,6 +71,6 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :cousine_id, :rating, :is_tenbis, :address, :maximum_delivery_time, :cuisine_id, :review)
+      params.permit(:name, :cuisine_id, :rating, :is_tenbis, :address, :maximum_delivery_time)
     end
 end
