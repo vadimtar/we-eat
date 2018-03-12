@@ -1,4 +1,4 @@
-class RestaurantsController < ApplicationController
+class Api::V1::RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
@@ -24,18 +24,13 @@ class RestaurantsController < ApplicationController
   end
 
   # POST /restaurants
-  # POST /restaurants.json
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    restaurant = Restaurant.new(restaurant_params)
 
-    respond_to do |format|
-      if @restaurant.save
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
-        format.json { render :show, status: :created, location: @restaurant }
-      else
-        format.html { render :new }
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
-      end
+    if restaurant.save
+      render json: restaurant, status: :created, serializer: Api::V1::RestaurantSerializer
+    else
+      render json: restaurant.errors, status: :unprocessable_entity
     end
   end
 
