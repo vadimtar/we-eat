@@ -3,65 +3,47 @@ class Api::V1::RestaurantsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   # GET /restaurants
-  # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
+    render json: @restaurants
   end
 
   # GET /restaurants/1
-  # GET /restaurants/1.json
   def show
-  end
-
-  # GET /restaurants/new
-  def new
-    @restaurant = Restaurant.new
-  end
-
-
-  # GET /restaurants/1/edit
-  def edit
+    render json: @restaurant, status: :ok, serializer: Api::V1::RestaurantSerializer if @restaurant.present?
+    render json: { error: 'Restaurant not found' }, status: :not_found if @restaurant.nil?
   end
 
   # POST /restaurants
   def create
-    restaurant = Restaurant.new(restaurant_params)
+    @restaurant = Restaurant.new(restaurant_params)
 
-    if restaurant.save
-      render json: restaurant, status: :created, serializer: Api::V1::RestaurantSerializer
+    if @restaurant.save
+      render json: @restaurant, status: :created, serializer: Api::V1::RestaurantSerializer
     else
-      render json: restaurant.errors, status: :unprocessable_entity
+      render json: @restaurant.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /restaurants/1
-  # PATCH/PUT /restaurants/1.json
   def update
-    respond_to do |format|
-      if @restaurant.update(restaurant_params)
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
-        format.json { render :show, status: :ok, location: @restaurant }
-      else
-        format.html { render :edit }
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
-      end
+    if @restaurant.update(restaurant_params)
+      render json: @restaurant, status: :ok, serializer: Api::V1::RestaurantSerializer
+    else
+      render json: @restaurant.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /restaurants/1
-  # DELETE /restaurants/1.json
   def destroy
     @restaurant.destroy
-    respond_to do |format|
-      format.html { redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head(:no_content)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
+      @restaurant = Restaurant.find_by(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

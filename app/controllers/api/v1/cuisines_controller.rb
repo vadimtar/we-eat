@@ -3,23 +3,15 @@ class Api::V1::CuisinesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   # GET /cuisines
-  # GET /cuisines.json
   def index
     @cuisines = Cuisine.all
+    render json: @cuisines
   end
 
   # GET /cuisines/1
-  # GET /cuisines/1.json
   def show
-  end
-
-  # GET /cuisines/new
-  def new
-    @cuisine = Cuisine.new
-  end
-
-  # GET /cuisines/1/edit
-  def edit
+    render json: @cuisine, status: :ok, serializer: Api::V1::CuisineSerializer if @cuisine.present?
+    render json: { error: 'Cuisine not found' }, status: :not_found if @cuisine.nil?
   end
 
   # POST /cuisines
@@ -34,33 +26,24 @@ class Api::V1::CuisinesController < ApplicationController
   end
 
   # PATCH/PUT /cuisines/1
-  # PATCH/PUT /cuisines/1.json
   def update
-    respond_to do |format|
-      if @cuisine.update(cuisine_params)
-        format.html { redirect_to @cuisine, notice: 'Cuisine was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cuisine }
-      else
-        format.html { render :edit }
-        format.json { render json: @cuisine.errors, status: :unprocessable_entity }
-      end
+    if @cuisine.update(cuisine_params)
+      render json: @cuisine, status: :ok, serializer: Api::V1::CuisineSerializer
+    else
+      render json: @cuisine.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /cuisines/1
-  # DELETE /cuisines/1.json
   def destroy
     @cuisine.destroy
-    respond_to do |format|
-      format.html { redirect_to cuisines_url, notice: 'Cuisine was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head(:no_content)
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_cuisine
-    @cuisine = Cuisine.find(params[:id])
+    @cuisine = Cuisine.find_by(id: params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
