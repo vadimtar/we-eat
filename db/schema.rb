@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20180314160841) do
     t.bigint "cuisine_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "review_count"
+    t.integer "reviews_count"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
   end
 
