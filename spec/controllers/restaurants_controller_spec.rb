@@ -66,5 +66,12 @@ describe Api::V1::RestaurantsController, type: :controller do
         delete :destroy, params: { id: restaurant.id }
       }.to change{ Restaurant.count }.by(-1)
     end
+    it 'deletes all associated reviews' do
+      restaurant = create(:restaurant)
+      create(:review, restaurant_id: restaurant.id)
+      expect{
+        delete :destroy, params: { id: restaurant.id }
+      }.to change{ Review.count }.by(-1)
+    end
   end
 end
