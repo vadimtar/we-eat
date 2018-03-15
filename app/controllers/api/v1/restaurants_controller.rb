@@ -1,6 +1,6 @@
 class Api::V1::RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   # GET /restaurants
   def index
@@ -9,28 +9,19 @@ class Api::V1::RestaurantsController < ApplicationController
 
   # GET /restaurants/1
   def show
-    return render json: @restaurant if @restaurant.present?
-    render json: { error: 'Restaurant not found' }, status: :not_found unless @restaurant.present?
+    render json: @restaurant if @restaurant.present?
   end
 
   # POST /restaurants
   def create
-    @restaurant = Restaurant.new(restaurant_params)
-
-    if @restaurant.save
-      render json: @restaurant, status: :created
-    else
-      render json: @restaurant.errors, status: :unprocessable_entity
-    end
+    @restaurant = Restaurant.create!(restaurant_params)
+    render json: @restaurant, status: :created
   end
 
   # PATCH/PUT /restaurants/1
   def update
-    if @restaurant.update(restaurant_params)
-      render json: @restaurant
-    else
-      render json: @restaurant.errors, status: :unprocessable_entity
-    end
+    @restaurant.update!(restaurant_params)
+    render json: @restaurant
   end
 
   # DELETE /restaurants/1
@@ -42,7 +33,7 @@ class Api::V1::RestaurantsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
-      @restaurant = Restaurant.find_by(id: params[:id])
+      @restaurant = Restaurant.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

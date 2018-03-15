@@ -3,15 +3,21 @@ require 'rails_helper'
 describe Api::V1::RestaurantsController, type: :controller do
   describe '#create' do
     context 'adding new restaurant' do
+      let!(:cuisine){ create(:cuisine) }
+      let(:test_restaurant){ attributes_for(:restaurant, cuisine_id: cuisine.id) }
       it 'returns json of the new restaurant' do
-        cuisine = create(:cuisine)
-        test_restaurant = attributes_for(:restaurant, cuisine_id: cuisine.id)
         post :create, params: test_restaurant
         parsed_response = JSON.parse(response.body)
 
         expect(response.content_type).to eq('application/json')
         expect(response).to have_http_status(:created)
         expect(parsed_response['name']).to eq test_restaurant[:name]
+      end
+      it 'returns bad request error when not sending requested param' do
+        post :create
+
+        expect(response.content_type).to eq('application/json')
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end
@@ -35,19 +41,16 @@ describe Api::V1::RestaurantsController, type: :controller do
       expect(response).to have_http_status(:ok)
       expect(parsed_response['id']).to eq restaurant.id
     end
-    it 'doesnt return restaurant that does not exist' do
+    it 'returns not_found error for non existing restaurant' do
       get :show, params: { id: restaurant.id + 1 }
-      parsed_response = JSON.parse(response.body)
-      expected_response = { 'error' => 'Restaurant not found' }
 
-      expect(parsed_response).to eq expected_response
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:not_found)
     end
   end
   describe 'update' do
+    let(:restaurant){ create(:restaurant, name: 'Old Name') }
     it 'updates restaurant and returns the updated one' do
-      restaurant = create(:restaurant, name: 'Old Name')
       new_name = 'New Name'
       put :update, params: { id: restaurant.id, name: new_name }
       parsed_response = JSON.parse(response.body)
@@ -55,6 +58,13 @@ describe Api::V1::RestaurantsController, type: :controller do
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:ok)
       expect(parsed_response['name']).to eq new_name
+    end
+    it 'returns not_found error for non existing restaurant' do
+      new_name = 'New Name'
+      put :update, params: { id: restaurant.id + 1, name: new_name }
+
+      expect(response.content_type).to eq('application/json')
+      expect(response).to have_http_status(:not_found)
     end
   end
   describe '#destroy' do
