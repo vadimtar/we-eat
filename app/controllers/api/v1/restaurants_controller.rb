@@ -4,14 +4,13 @@ class Api::V1::RestaurantsController < ApplicationController
 
   # GET /restaurants
   def index
-    @restaurants = Restaurant.all
-    render json: @restaurants
+    render json: Restaurant.all
   end
 
   # GET /restaurants/1
   def show
-    render json: @restaurant, status: :ok, serializer: Api::V1::RestaurantSerializer if @restaurant.present?
-    render json: { error: 'Restaurant not found' }, status: :not_found if @restaurant.nil?
+    return render json: @restaurant if @restaurant.present?
+    render json: { error: 'Restaurant not found' }, status: :not_found unless @restaurant.present?
   end
 
   # POST /restaurants
@@ -19,7 +18,7 @@ class Api::V1::RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
 
     if @restaurant.save
-      render json: @restaurant, status: :created, serializer: Api::V1::RestaurantSerializer
+      render json: @restaurant, status: :created
     else
       render json: @restaurant.errors, status: :unprocessable_entity
     end
@@ -28,7 +27,7 @@ class Api::V1::RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1
   def update
     if @restaurant.update(restaurant_params)
-      render json: @restaurant, status: :ok, serializer: Api::V1::RestaurantSerializer
+      render json: @restaurant
     else
       render json: @restaurant.errors, status: :unprocessable_entity
     end

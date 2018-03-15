@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :cuisine, class: Cuisine do
-    name "American"
+    name Faker::Name.name
   end
 end

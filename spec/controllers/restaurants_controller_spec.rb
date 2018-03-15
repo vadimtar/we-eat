@@ -26,19 +26,17 @@ describe Api::V1::RestaurantsController, type: :controller do
     end
   end
   describe '#show' do
-    before(:each) do
-      @restaurant = create(:restaurant)
-    end
+    let(:restaurant) { create(:restaurant) }
     it 'returns restaurant by id' do
-      get :show, params: { id: @restaurant.id }
+      get :show, params: { id: restaurant.id }
       parsed_response = JSON.parse(response.body)
 
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:ok)
-      expect(parsed_response['id']).to eq @restaurant.id
+      expect(parsed_response['id']).to eq restaurant.id
     end
     it 'doesnt return restaurant that does not exist' do
-      get :show, params: { id: @restaurant.id + 1 }
+      get :show, params: { id: restaurant.id + 1 }
       parsed_response = JSON.parse(response.body)
       expected_response = { 'error' => 'Restaurant not found' }
 

@@ -25,19 +25,17 @@ describe Api::V1::ReviewsController, type: :controller do
     end
   end
   describe '#show' do
-    before(:each) do
-      @review = create(:review)
-    end
+    let(:review) { create(:review) }
     it 'returns review by id' do
-      get :show, params: { id: @review.id }
+      get :show, params: { id: review.id }
       parsed_response = JSON.parse(response.body)
 
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:ok)
-      expect(parsed_response['id']).to eq @review.id
+      expect(parsed_response['id']).to eq review.id
     end
     it 'doesnt return review that does not exist' do
-      get :show, params: { id: @review.id + 1 }
+      get :show, params: { id: review.id + 1 }
       parsed_response = JSON.parse(response.body)
 
       expected_response = { 'error' => 'Review not found' }

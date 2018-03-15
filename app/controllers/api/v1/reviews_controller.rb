@@ -3,14 +3,13 @@ class Api::V1::ReviewsController < ApplicationController
 
   # GET /reviews
   def index
-    @reviews = Review.all
-    render json: @reviews
+    render json: Review.all
   end
 
   # GET /reviews/1
   def show
-    render json: @review, status: :ok, serializer: Api::V1::ReviewSerializer if @review.present?
-    render json: { error: 'Review not found' }, status: :not_found if @review.nil?
+    render json: @review if @review.present?
+    render json: { error: 'Review not found' }, status: :not_found unless @review.present?
   end
 
   # POST /reviews
@@ -18,7 +17,7 @@ class Api::V1::ReviewsController < ApplicationController
     @review = Review.new(review_params)
 
     if @review.save
-      render json: @review, status: :created, serializer: Api::V1::ReviewSerializer
+      render json: @review, status: :created
     else
       render json: @review.errors, status: :unprocessable_entity
     end
@@ -27,7 +26,7 @@ class Api::V1::ReviewsController < ApplicationController
   # PATCH/PUT /reviews/1
   def update
     if @review.update(review_params)
-      render json: @review, status: :ok, serializer: Api::V1::ReviewSerializer
+      render json: @review
     else
       render json: @review.errors, status: :unprocessable_entity
     end

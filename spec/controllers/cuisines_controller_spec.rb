@@ -4,13 +4,13 @@ describe Api::V1::CuisinesController, type: :controller do
   describe '#create' do
     context 'adding new cuisine' do
       it 'returns json of the new cuisine' do
-        cuisine_name = 'Amazing Cuisine'
-        post :create, params: { name: cuisine_name }
+        cuisine = attributes_for(:cuisine)
+        post :create, params: cuisine
         parsed_response = JSON.parse(response.body)
 
         expect(response.content_type).to eq('application/json')
         expect(response).to have_http_status(:created)
-        expect(parsed_response['name']).to eq cuisine_name
+        expect(parsed_response['name']).to eq cuisine[:name]
       end
     end
   end
@@ -25,19 +25,17 @@ describe Api::V1::CuisinesController, type: :controller do
     end
   end
   describe '#show' do
-    before(:each) do
-      @cuisine = create(:cuisine)
-    end
+    let(:cuisine) { create(:cuisine) }
     it 'returns cuisine by id' do
-      get :show, params: { id: @cuisine.id }
+      get :show, params: { id: cuisine.id }
       parsed_response = JSON.parse(response.body)
 
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:ok)
-      expect(parsed_response['id']).to eq @cuisine.id
+      expect(parsed_response['id']).to eq cuisine.id
     end
     it 'doesnt return cuisine that does not exist' do
-      get :show, params: { id: @cuisine.id + 1 }
+      get :show, params: { id: cuisine.id + 1 }
       parsed_response = JSON.parse(response.body)
 
       expected_response = { 'error' => 'Cuisine not found' }

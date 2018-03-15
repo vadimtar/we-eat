@@ -4,14 +4,13 @@ class Api::V1::CuisinesController < ApplicationController
 
   # GET /cuisines
   def index
-    @cuisines = Cuisine.all
-    render json: @cuisines
+    render json: Cuisine.all
   end
 
   # GET /cuisines/1
   def show
-    render json: @cuisine, status: :ok, serializer: Api::V1::CuisineSerializer if @cuisine.present?
-    render json: { error: 'Cuisine not found' }, status: :not_found if @cuisine.nil?
+    return render json: @cuisine if @cuisine.present?
+    render json: { error: 'Cuisine not found' }, status: :not_found unless @cuisine.present?
   end
 
   # POST /cuisines
@@ -19,7 +18,7 @@ class Api::V1::CuisinesController < ApplicationController
     @cuisine = Cuisine.new(cuisine_params)
 
     if @cuisine.save
-      render json: @cuisine, status: :created, serializer: Api::V1::CuisineSerializer
+      render json: @cuisine, status: :created
     else
       render json: @cuisine.errors, status: :unprocessable_entity
     end
@@ -28,7 +27,7 @@ class Api::V1::CuisinesController < ApplicationController
   # PATCH/PUT /cuisines/1
   def update
     if @cuisine.update(cuisine_params)
-      render json: @cuisine, status: :ok, serializer: Api::V1::CuisineSerializer
+      render json: @cuisine
     else
       render json: @cuisine.errors, status: :unprocessable_entity
     end

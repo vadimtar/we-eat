@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :restaurant, class: Restaurant do
-    name "Schrute's Place"
-    rating 3
+    name Faker::Name.name
+    rating Random.rand(1..3)
     is_tenbis true
-    address "Scranton, PN"
-    maximum_delivery_time 40
+    address Faker::Address.street_name
+    maximum_delivery_time Random.rand(30..120)
     association :cuisine, factory: :cuisine
   end
 end
