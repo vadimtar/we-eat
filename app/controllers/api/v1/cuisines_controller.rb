@@ -1,60 +1,32 @@
 class Api::V1::CuisinesController < ApplicationController
-  before_action :set_cuisine, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
+  before_action :set_cuisine, only: [:show, :edit, :update, :destroy]
 
   # GET /cuisines
-  # GET /cuisines.json
   def index
-    @cuisines = Cuisine.all
+    render json: Cuisine.all
   end
 
   # GET /cuisines/1
-  # GET /cuisines/1.json
   def show
+    render json: @cuisine if @cuisine.present?
   end
 
-  # GET /cuisines/new
-  def new
-    @cuisine = Cuisine.new
-  end
-
-  # GET /cuisines/1/edit
-  def edit
-  end
-
-  # POST /cuisines
   def create
-    @cuisine = Cuisine.new(cuisine_params)
-
-    if @cuisine.save
-      render json: @cuisine, status: :created, serializer: Api::V1::CuisineSerializer
-    else
-      render json: @cuisine.errors, status: :unprocessable_entity
-    end
+    @cuisine = Cuisine.create!(cuisine_params)
+    render json: @cuisine, status: :created
   end
 
   # PATCH/PUT /cuisines/1
-  # PATCH/PUT /cuisines/1.json
   def update
-    respond_to do |format|
-      if @cuisine.update(cuisine_params)
-        format.html { redirect_to @cuisine, notice: 'Cuisine was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cuisine }
-      else
-        format.html { render :edit }
-        format.json { render json: @cuisine.errors, status: :unprocessable_entity }
-      end
-    end
+    @cuisine.update!(cuisine_params)
+    render json: @cuisine
   end
 
   # DELETE /cuisines/1
-  # DELETE /cuisines/1.json
   def destroy
     @cuisine.destroy
-    respond_to do |format|
-      format.html { redirect_to cuisines_url, notice: 'Cuisine was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head(:no_content)
   end
 
   private
