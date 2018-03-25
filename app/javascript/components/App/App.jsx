@@ -3,25 +3,37 @@ import Header from './Header'
 import SearchBar from './SearchBar'
 import Body from './Body'
 
+const URL = 'http://localhost:3000/api/v1';
+const RATINGS = [{id: 1, value: 1},{id: 2, value: 2},{id: 3, value: 3}];
+const DELIVERY_TIME = [{id: 1, value: 15},{id: 2, value: 30}, {id: 3, value: 45}, {id: 4, value: 60}];
 
 class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			restaurants: [],
-			cuisines: ['Italian'],
-			ratings: [1,2,3],
-			deliveryTime: [15,30,45,60]
+			cuisines: []
 		}
 	}
 
 	componentDidMount() {
-		let url = 'http://localhost:3000/api/v1/restaurants';
+		this.fetchRestaurants();
+		this.fetchCuisines();
+	}
 
-		fetch(url)
+	fetchRestaurants() {
+		fetch(URL + '/restaurants')
 			.then(response => response.json())
 			.then(data => {
 				this.setState({restaurants: data});
+			})
+	}
+
+	fetchCuisines() {
+		fetch(URL + '/cuisines')
+			.then(response => response.json())
+			.then(data => {
+				this.setState({cuisines: data});
 			})
 	}
 
@@ -29,8 +41,14 @@ class App extends React.Component {
 		return (
 			<div>
 				<Header />
-				<SearchBar />
-				<Body restaurants = {this.state.restaurants} />
+				<SearchBar
+					searchParams={{
+						cuisines: this.state.cuisines,
+						ratings: RATINGS,
+						deliveryTimes: DELIVERY_TIME
+					}}
+				/>
+				<Body restaurants={this.state.restaurants} />
 			</div>
 		);
 	}

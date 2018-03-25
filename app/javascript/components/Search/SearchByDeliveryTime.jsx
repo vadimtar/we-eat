@@ -1,7 +1,17 @@
 import React from 'react';
+import SearchSelect from './SearchSelect'
 
-export default function SearchByDeliveryTime(){
+export default function SearchByDeliveryTime(props){
+	const options = props.deliveryTimes.map(deliveryTime => {
+		return (
+			<option key={deliveryTime.id} value={deliveryTime.id}>{deliveryTime.value}</option>
+		)
+	});
+
 	return (
-		<input type="text" className="form-control" placeholder="Minimum Delivery Time"/>
+		<SearchSelect
+			controlId='formControlsSelectDeliveryTime'
+			options={options}
+		/>
 	);
 }

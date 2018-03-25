@@ -1,7 +1,17 @@
 import React from 'react';
+import SearchSelect from "./SearchSelect";
 
-export default function SearchByRating(){
+export default function SearchByRating(props){
+	const options = props.ratings.map(rating => {
+		return (
+			<option key={rating.id} value={rating.id}>{rating.value}</option>
+		)
+	});
+
 	return (
-		<input type="text" className="form-control" placeholder="Minimum Rating"/>
+		<SearchSelect
+			controlId='formControlsSelectRating'
+			options={options}
+		/>
 	);
 }

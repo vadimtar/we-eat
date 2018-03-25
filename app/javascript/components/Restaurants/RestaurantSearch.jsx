@@ -1,7 +1,14 @@
 import React from 'react';
+import { FormGroup, FormControl } from 'react-bootstrap'
 
 export default function RestaurantSearch() {
 	return (
-		<input type="text" className="form-control" placeholder="Search for a Restaurant..."/>
+		<FormGroup>
+			<FormControl
+				type="text"
+				placeholder="Search Restaurant"
+				// onChange={this.handleChange}
+			/>
+		</FormGroup>
 	);
 }

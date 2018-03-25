@@ -4,17 +4,17 @@ import SearchByCuisine from '../Search/SearchByCuisine'
 import SearchByRating from '../Search/SearchByRating'
 import SearchByDeliveryTime from '../Search/SearchByDeliveryTime'
 
-export default function SearchBar(){
+export default function SearchBar(props){
 	return (
 		<Row className="search-bar">
 			<Col md={3}>
-				<SearchByCuisine/>
+				<SearchByCuisine cuisines={props.searchParams.cuisines}/>
 			</Col>
 			<Col md={3}>
-				<SearchByRating/>
+				<SearchByRating ratings={props.searchParams.ratings}/>
 			</Col>
 			<Col md={3}>
-				<SearchByDeliveryTime/>
+				<SearchByDeliveryTime deliveryTimes={props.searchParams.deliveryTimes}/>
 			</Col>
 		</Row>
 	);
