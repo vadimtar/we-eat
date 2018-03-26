@@ -3,7 +3,6 @@ import Header from './Header'
 import SearchBar from './SearchBar'
 import Body from './Body'
 
-const URL = 'http://localhost:3000/api/v1';
 const RATINGS = [{id: 1, value: 1},{id: 2, value: 2},{id: 3, value: 3}];
 const DELIVERY_TIME = [{id: 1, value: 15},{id: 2, value: 30}, {id: 3, value: 45}, {id: 4, value: 60}];
 
@@ -69,7 +68,7 @@ class App extends React.Component {
 	}
 
 	fetchRestaurants() {
-		fetch(URL + '/restaurants')
+		fetch('api/v1/restaurants')
 			.then(response => response.json())
 			.then(data => {
 				this.setState({
@@ -80,7 +79,7 @@ class App extends React.Component {
 	}
 
 	fetchCuisines() {
-		fetch(URL + '/cuisines')
+		fetch('api/v1/cuisines')
 			.then(response => response.json())
 			.then(data => {
 				this.setState({cuisines: data});
