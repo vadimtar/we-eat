@@ -4,7 +4,7 @@ import SearchSelect from './SearchSelect'
 export default function SearchByDeliveryTime(props){
 	const options = props.deliveryTimes.map(deliveryTime => {
 		return (
-			<option key={deliveryTime.id} value={deliveryTime.id}>{deliveryTime.value}</option>
+			<option key={deliveryTime.id} value={deliveryTime.value}>{deliveryTime.value}</option>
 		)
 	});
 
@@ -12,6 +12,7 @@ export default function SearchByDeliveryTime(props){
 		<SearchSelect
 			controlId='formControlsSelectDeliveryTime'
 			options={options}
+			onSelectChange={props.onRestaurantDeliveryTimeChange}
 		/>
 	);
 }

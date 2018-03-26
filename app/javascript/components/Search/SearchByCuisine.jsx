@@ -12,6 +12,7 @@ export default function SearchByCuisine(props){
 		<SearchSelect
 			controlId='formControlsSelectCuisine'
 			options={options}
+			onSelectChange={props.onRestaurantCuisineChange}
 		/>
 	);
 }

@@ -12,6 +12,7 @@ export default function SearchByRating(props){
 		<SearchSelect
 			controlId='formControlsSelectRating'
 			options={options}
+			onSelectChange={props.onRestaurantRatingChange}
 		/>
 	);
 }

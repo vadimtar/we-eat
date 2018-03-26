@@ -3,7 +3,7 @@ import { Row, Col, PageHeader } from 'react-bootstrap'
 import RestaurantSearch from '../Restaurants/RestaurantSearch'
 import RestaurantAdd from '../Restaurants/RestaurantAdd'
 
-export default function Header() {
+export default function Header(props) {
 	return (
 		<Row className="header">
 			<div className="container">
@@ -11,7 +11,9 @@ export default function Header() {
 					<PageHeader className="text-center">WeEat</PageHeader>
 				</Row>
 				<Row>
-					<RestaurantSearch />
+					<RestaurantSearch
+						onRestaurantNameChange={props.onRestaurantNameChange}
+					/>
 				</Row>
 				<Row>
 					<RestaurantAdd />
