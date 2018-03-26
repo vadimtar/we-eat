@@ -116,7 +116,7 @@ class App extends React.Component {
 
 	handleRestaurantSearch() {
 		let restaurants = this.state.restaurants.slice();
-		for (let key in this.state.filterParams) {
+		for(let key in this.state.filterParams) {
 			let filterParam = this.state.filterParams[key];
 			if (filterParam !== undefined && filterParam !== '') {
 				restaurants = restaurants.filter(filterFunctions[key](filterParam));
