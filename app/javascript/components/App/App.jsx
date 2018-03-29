@@ -1,7 +1,11 @@
 import React from 'react';
+import { Row } from 'react-bootstrap'
 import Header from './Header'
 import SearchBar from './SearchBar'
 import Body from './Body'
+import Footer from './Footer'
+import RestaurantSearch from '../Restaurants/RestaurantSearch'
+
 
 const RATINGS = [{id: 1, value: 1},{id: 2, value: 2},{id: 3, value: 3}];
 const DELIVERY_TIME = [{id: 1, value: 15},{id: 2, value: 30}, {id: 3, value: 45}, {id: 4, value: 60}];
@@ -127,21 +131,33 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<Header
-					onRestaurantNameChange={this.handleRestaurantSearchByName}
-				/>
-				<SearchBar
-					filterParams={{
-						cuisines: this.state.cuisines,
-						ratings: RATINGS,
-						deliveryTimes: DELIVERY_TIME
-					}}
-					onRestaurantCuisineChange={this.handleRestaurantSearchByCuisineId}
-					onRestaurantRatingChange={this.handleRestaurantSearchByMinimumRating}
-					onRestaurantDeliveryTimeChange={this.handleRestaurantSearchByMaximumDeliveryTime}
-				/>
-				<Body restaurants={this.state.filteredRestaurants} />
+			<div className="container-fluid">
+				<Header>
+					<RestaurantSearch className="restaraunt-search-header text-center"
+						onRestaurantNameChange={this.handleRestaurantSearchByName}
+					/>
+				</Header>
+				<Row className="search-bar-container">
+					<div className="container">
+						<SearchBar
+							filterParams={{
+								cuisines: this.state.cuisines,
+								ratings: RATINGS,
+								deliveryTimes: DELIVERY_TIME
+							}}
+							onRestaurantCuisineChange={this.handleRestaurantSearchByCuisineId}
+							onRestaurantRatingChange={this.handleRestaurantSearchByMinimumRating}
+							onRestaurantDeliveryTimeChange={this.handleRestaurantSearchByMaximumDeliveryTime}
+						/>
+					</div>
+				</Row>
+				<div className="container">
+					<Body
+						restaurants={this.state.filteredRestaurants}
+						defaultCenter={{ lat: 32.0756665, lng: 34.7807043 }}
+					/>
+				</div>
+				<Footer />
 			</div>
 		);
 	}

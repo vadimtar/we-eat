@@ -1,3 +1,33 @@
 // Place all the styles related to the Restaurants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.restaurants-list {
+  padding: 0px;
+  ul {
+    list-style-type: none;
+    padding-left: 0px;
+  }
+  max-height: 580px;
+  overflow-y: scroll
+}
+.restaurants-list-item{
+  border: 1px solid rgba(0,0,0,0.125);
+  padding: 0.75rem 1.25rem 0 0.5rem;
+  .restaurant-name{
+    font-weight: bold;
+  }
+  .ten-bis-img {
+    width: 30px;
+  }
+  .row {
+    margin-bottom: 5px;
+  }
+  .restaurant-list-item-address {
+    margin-top: 5px;
+  }
+}
+
+.restaurants-list-item:hover {
+  background-color: whitesmoke;
+}

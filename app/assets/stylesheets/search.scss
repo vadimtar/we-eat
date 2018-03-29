@@ -1,0 +1,34 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.search-bar-container, .search-bar {
+  background: #e32e2a;
+}
+.search-bar {
+  padding: 0.70rem;
+  label {
+    color: white;
+    font-size: small;
+  }
+}
+
+.restaurant-name-search-bar {
+  .restaurant-name-search-field{
+    position: relative;
+    color: #a0a0a0;
+    padding: 10px;
+  }
+  .fa-search{
+    position: absolute;
+    top: 20px;
+    left: 18px;
+  }
+  .form-control{
+    padding-left: 1.75rem;
+  }
+}
+
+.header{
+
+}

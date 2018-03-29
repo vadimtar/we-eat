@@ -2,11 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .header {
-  padding: 6rem 2rem;
+  padding: 3rem 2rem;
   margin-bottom: 0px;
   background: #ffffff asset-url('/assets/we-eat-bg.jpg') no-repeat right top;
   background-size: 100%;
-  background-position-y: 100%;
+  background-position-y: 45%;
 
   h1 {
     color: whitesmoke;
@@ -14,28 +14,24 @@
     text-align: center;
   }
 }
-.restaurants-list {
-  .card:hover {
-    background-color: whitesmoke;
-  }
-  .tenbis-wrap {
-    img {
-      width: 2rem;
-    }
+.we-eat-body{
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .show-all-on-map-button{
+    position: absolute;
+    top: 9px;
+    z-index: 1000;
+    left: 120px;
   }
 }
+
+.we-eat-footer {
+  background: #b8c761;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
 .form-group label {
   color: white;
-}
-
-.rbt {
-  width: 20rem;
-}
-
-.restaurants-list .card:hover{
-  cursor: pointer;
-}
-
-.restaurants-list .active {
-  background-color: aliceblue;
 }
