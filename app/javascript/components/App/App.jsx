@@ -9,34 +9,22 @@ const DELIVERY_TIME = [{id: 1, value: 15},{id: 2, value: 30}, {id: 3, value: 45}
 const filterFunctions = {
 	byName: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.name.toLowerCase().indexOf(filterParam.toLowerCase()) !== -1) {
-				return true;
-			}
-			return false;
+			return objectToCompare.name.toLowerCase().indexOf(filterParam.toLowerCase()) !== -1
 		}
 	},
 	byCuisineId: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.cuisine.id == filterParam) {
-				return true;
-			}
-			return false;
+			return objectToCompare.cuisine.id === parseInt(filterParam)
 		}
 	},
 	byMinimumRating: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.rating >= filterParam) {
-				return true;
-			}
-			return false;
+			return objectToCompare.rating >= filterParam
 		}
 	},
 	byMaximumDeliveryTime: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.maximum_delivery_time <= filterParam) {
-				return true;
-			}
-			return false;
+			return objectToCompare.maximum_delivery_time <= filterParam
 		}
 	}
 };
