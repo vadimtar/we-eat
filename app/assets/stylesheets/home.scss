@@ -1,0 +1,41 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.header {
+  padding: 6rem 2rem;
+  margin-bottom: 0px;
+  background: #ffffff asset-url('/assets/we-eat-bg.jpg') no-repeat right top;
+  background-size: 100%;
+  background-position-y: 100%;
+
+  h1 {
+    color: whitesmoke;
+    font-size: 4.5rem;
+    text-align: center;
+  }
+}
+.restaurants-list {
+  .card:hover {
+    background-color: whitesmoke;
+  }
+  .tenbis-wrap {
+    img {
+      width: 2rem;
+    }
+  }
+}
+.form-group label {
+  color: white;
+}
+
+.rbt {
+  width: 20rem;
+}
+
+.restaurants-list .card:hover{
+  cursor: pointer;
+}
+
+.restaurants-list .active {
+  background-color: aliceblue;
+}
