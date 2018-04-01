@@ -13,34 +13,22 @@ const DELIVERY_TIME = [{id: 1, value: 15},{id: 2, value: 30}, {id: 3, value: 45}
 const filterFunctions = {
 	byName: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.name.toLowerCase().indexOf(filterParam.toLowerCase()) !== -1) {
-				return true;
-			}
-			return false;
+			return objectToCompare.name.toLowerCase().indexOf(filterParam.toLowerCase()) !== -1
 		}
 	},
 	byCuisineId: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.cuisine.id == filterParam) {
-				return true;
-			}
-			return false;
+			return objectToCompare.cuisine.id === parseInt(filterParam)
 		}
 	},
 	byMinimumRating: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.rating >= filterParam) {
-				return true;
-			}
-			return false;
+			return objectToCompare.rating >= filterParam
 		}
 	},
 	byMaximumDeliveryTime: filterParam => {
 		return objectToCompare => {
-			if(objectToCompare.maximum_delivery_time <= filterParam) {
-				return true;
-			}
-			return false;
+			return objectToCompare.maximum_delivery_time <= filterParam
 		}
 	}
 };
@@ -91,30 +79,24 @@ class App extends React.Component {
 	}
 
 	handleRestaurantSearchByMaximumDeliveryTime(e) {
-		const deliveryTime = e.target.value;
-		let filterParams = {...this.state.filterParams};
-		filterParams.byMaximumDeliveryTime = deliveryTime;
-		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
+		this.filterRestaurants('byMaximumDeliveryTime', e.target.value);
 	}
 
 	handleRestaurantSearchByMinimumRating(e) {
-		const rating = e.target.value;
-		let filterParams = {...this.state.filterParams};
-		filterParams.byMinimumRating = rating;
-		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
+		this.filterRestaurants('byMinimumRating', e.target.value);
 	}
 
 	handleRestaurantSearchByCuisineId(e) {
-		const cuisineId = e.target.value;
-		let filterParams = {...this.state.filterParams};
-		filterParams.byCuisineId = cuisineId;
-		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
+		this.filterRestaurants('byCuisineId', e.target.value);
 	}
 
 	handleRestaurantSearchByName(e) {
-		const restaurantName = e.target.value;
+		this.filterRestaurants('byName', e.target.value);
+	}
+	
+	filterRestaurants(name, value) {
 		let filterParams = {...this.state.filterParams};
-		filterParams.byName = restaurantName;
+		filterParams[name] = value;
 		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
 	}
 

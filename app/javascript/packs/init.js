@@ -7,7 +7,9 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from '../components/App/App';
 
-ReactDOM.render(
-	<App />,
-	document.body.appendChild(document.createElement('div'))
-);
+document.addEventListener('DOMContentLoaded', () => {
+	ReactDOM.render(
+		<App/>,
+		document.body.appendChild(document.createElement('div'))
+	)
+})
