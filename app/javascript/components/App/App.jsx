@@ -75,30 +75,24 @@ class App extends React.Component {
 	}
 
 	handleRestaurantSearchByMaximumDeliveryTime(e) {
-		const deliveryTime = e.target.value;
-		let filterParams = {...this.state.filterParams};
-		filterParams.byMaximumDeliveryTime = deliveryTime;
-		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
+		this.filterRestaurants('byMaximumDeliveryTime', e.target.value);
 	}
 
 	handleRestaurantSearchByMinimumRating(e) {
-		const rating = e.target.value;
-		let filterParams = {...this.state.filterParams};
-		filterParams.byMinimumRating = rating;
-		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
+		this.filterRestaurants('byMinimumRating', e.target.value);
 	}
 
 	handleRestaurantSearchByCuisineId(e) {
-		const cuisineId = e.target.value;
-		let filterParams = {...this.state.filterParams};
-		filterParams.byCuisineId = cuisineId;
-		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
+		this.filterRestaurants('byCuisineId', e.target.value);
 	}
 
 	handleRestaurantSearchByName(e) {
-		const restaurantName = e.target.value;
+		this.filterRestaurants('byName', e.target.value);
+	}
+	
+	filterRestaurants(name, value) {
 		let filterParams = {...this.state.filterParams};
-		filterParams.byName = restaurantName;
+		filterParams[name] = value;
 		this.setState({filterParams: filterParams},() => this.handleRestaurantSearch());
 	}
 
