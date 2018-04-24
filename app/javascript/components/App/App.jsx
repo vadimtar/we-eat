@@ -1,13 +1,14 @@
 import React from 'react';
-import { Row } from 'react-bootstrap'
+import { Row, Button, Col } from 'react-bootstrap'
+import { Link, Route } from 'react-router-dom';
 import Header from './Header'
 import SearchBar from './SearchBar'
 import Body from './Body'
 import Footer from './Footer'
 import RestaurantSearch from '../Restaurants/RestaurantSearch'
+import Restaurant from '../Restaurants/Restaurant'
 
-
-const RATINGS = [{id: 1, value: 1},{id: 2, value: 2},{id: 3, value: 3}];
+const RATINGS = [{id: 1, value: 1,},{id: 2, value: 2},{id: 3, value: 3}];
 const DELIVERY_TIME = [{id: 1, value: 15},{id: 2, value: 30}, {id: 3, value: 45}, {id: 4, value: 60}];
 
 const filterFunctions = {
@@ -118,6 +119,11 @@ class App extends React.Component {
 					<RestaurantSearch className="restaraunt-search-header text-center"
 						onRestaurantNameChange={this.handleRestaurantSearchByName}
 					/>
+					<Link to="/add">
+						<Button bsSize="small">
+							<i className="fas fa-plus"></i>
+						</Button>
+					</Link>
 				</Header>
 				<Row className="search-bar-container">
 					<div className="container">
@@ -133,12 +139,20 @@ class App extends React.Component {
 						/>
 					</div>
 				</Row>
-				<div className="container">
-					<Body
-						restaurants={this.state.filteredRestaurants}
-						defaultCenter={{ lat: 32.0756665, lng: 34.7807043 }}
-					/>
-				</div>
+
+				<Route exact path="/"
+					 component={() =>
+						 <div className="container">
+							 <Body
+								 restaurants={this.state.filteredRestaurants}
+								 defaultCenter={{ lat: 32.0756665, lng: 34.7807043 }}
+							 />
+						 </div>
+					 }
+				/>
+				<Route exact path="/add"
+							 component={() => <Restaurant cuisines={this.state.cuisines}/>}
+				/>
 				<Footer />
 			</div>
 		);

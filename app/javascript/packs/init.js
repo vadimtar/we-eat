@@ -6,10 +6,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from '../components/App/App';
+import { BrowserRouter } from 'react-router-dom';
 
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(
-		<App/>,
-		document.body.appendChild(document.createElement('div'))
+		<BrowserRouter>
+			<App/>
+		</BrowserRouter>
+		,document.body.appendChild(document.createElement('div'))
 	)
+
 })

@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :cuisines
       resources :reviews
-      resources :restaurants
+      resources :restaurants do
+        get '(:id)/reviews' => 'reviews#index_by_restaurant_id'
+        resources :reviews, only: [:create]
+      end
     end
   end
 end

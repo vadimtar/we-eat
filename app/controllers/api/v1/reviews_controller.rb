@@ -7,6 +7,10 @@ class Api::V1::ReviewsController < ApplicationController
     render json: Review.all
   end
 
+  def index_by_restaurant_id
+    render json: Review.where(restaurant_id: review_params[:restaurant_id])
+  end
+
   # GET /reviews/1
   def show
     render json: @review if @review.present?
@@ -38,6 +42,6 @@ class Api::V1::ReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
-      params.permit(:restaurant_id, :reviewer_name, :rating, :review_comment)
+      params.permit(:id, :restaurant_id, :reviewer_name, :rating, :review_comment)
     end
 end
