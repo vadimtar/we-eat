@@ -60,5 +60,5 @@ Metrics/BlockLength:
     - "spec/**/*.rb"
     - "config/initializers/rails_admin.rb"
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma

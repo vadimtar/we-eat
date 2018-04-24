@@ -1,24 +1,17 @@
 import React from 'react';
 import { Row, Col, PageHeader } from 'react-bootstrap'
-import RestaurantSearch from '../Restaurants/RestaurantSearch'
-import RestaurantAdd from '../Restaurants/RestaurantAdd'
 
 export default function Header(props) {
 	return (
 		<Row className="header">
-			<div className="container">
-				<Row className="text-center">
-					<PageHeader className="text-center">WeEat</PageHeader>
-				</Row>
+			<Col md={12}>
 				<Row>
-					<RestaurantSearch
-						onRestaurantNameChange={props.onRestaurantNameChange}
-					/>
+					<Col md={12}>
+						<PageHeader>WeEat</PageHeader>
+					</Col>
 				</Row>
-				<Row>
-					<RestaurantAdd />
-				</Row>
-			</div>
+				{props.children}
+			</Col>
 		</Row>
 	);
 }
